@@ -12,10 +12,13 @@ var Hub = {
 	tweetTrendyID: 'tweetTrendy',
 	tweetUpdateDelay: 15000,
 	tweetTrendyDelay: 30000,
-	tweetsLimit: 30,
+	tweetsLimit: 40,
+	documentTitle: document.title,
+	unreadTweets: 0,
 	
 	init: function(){
 		Hub.tweetsList = $(Hub.tweetsListID);
+		Hub.clearTitle();
 		Hub.displayTweets();
 		Hub.displayNewTweets.periodical(Hub.tweetUpdateDelay);
 		Hub.displayTrend();
@@ -58,6 +61,23 @@ var Hub = {
 					}
 				}).tween('height', 0, height);
 			});
+			Hub.unreadTweets += data.results.length;
+			if (Hub.unreadTweets > Hub.tweetsLimit) Hub.unreadTweets = Hub.tweetsLimit + '+';
+			document.title = Hub.documentTitle + ' (' + Hub.unreadTweets + ')';
+		});
+	},
+	
+	clearTitle: function(){
+		var clear = function(){
+			if (document.title == Hub.documentTitle) return;
+			(function(){
+				document.title = Hub.documentTitle;
+			}).delay(1000);
+		};
+		Hub.tweetsList.addEvents({
+			mouseover: clear,
+			mouseout: clear,
+			click: clear
 		});
 	},
 	
@@ -113,7 +133,7 @@ var Hub = {
 	},
 	
 	getTweets: function(fn){
-		var url = 'http://search.twitter.com/search.json?q=' + encodeURIComponent(Hub.query);
+		var url = 'http://search.twitter.com/search.json?q=' + encodeURIComponent(Hub.query) + '&rpp=' + Hub.tweetsLimit;
 		new Request.JSONP({url: url, onComplete: fn }).send();
 	},
 	
