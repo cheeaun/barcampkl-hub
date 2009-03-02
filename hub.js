@@ -62,7 +62,7 @@ var Hub = {
 				}).tween('height', 0, height);
 			});
 			Hub.unreadTweets += data.results.length;
-			if (Hub.unreadTweets > Hub.tweetsLimit) Hub.unreadTweets = Hub.tweetsLimit + '+';
+			if (Hub.unreadTweets > Hub.tweetsLimit) Hub.unreadTweets = Hub.tweetsLimit;
 			document.title = Hub.documentTitle + ' (' + Hub.unreadTweets + ')';
 		});
 	},
