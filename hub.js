@@ -71,7 +71,7 @@ var Hub = {
 				}
 			});
 			var html = '';
-			if (trendy) html = '<strong>barcampkl</strong> is currently the <strong>No. ' + trendy + '</strong> trending topic on Twitter!';
+			if (trendy) html = '<strong>' + Hub.tag + '</strong> is currently the <strong>No. ' + trendy + '</strong> trending topic on Twitter!';
 			$(Hub.tweetTrendyID).set('html', html).setStyle('display', (trendy) ? '': 'none');
 		});
 	},
