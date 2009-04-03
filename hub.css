@@ -68,6 +68,26 @@ img, a img{
 	background-color: #0487DC;
 }
 
+#twistori-mode{
+	position: absolute;
+	z-index: 9999999;
+	bottom: 0;
+	right: 2em;
+	padding: 1em;
+	color: #fff;
+	background-color: #0487DC;
+	font-weight: bold;
+	opacity: .5;
+	-moz-opacity: .5;
+	-webkit-opacity: .5;
+}
+
+#twistori-mode:hover{
+	opacity: 1;
+	-moz-opacity: 1;
+	-webkit-opacity: 1;
+}
+
 #tweetsContainer{
 	position: absolute;
 	top: 40px;
@@ -101,8 +121,13 @@ img, a img{
 	overflow: hidden;
 }
 
+#tweetsList li:first-child{
+	color: #fefefe;
+	background-color: transparent;
+}
+
 #tweetsList li:hover{
-	color: inherit;
+	color: #fefefe;
 	background-color: #2B2B2B;
 }
 
@@ -147,4 +172,38 @@ img, a img{
 	border: 0;
 	height: 100%;
 	width: 100%;
+}
+
+.twistori #tweetsContainer{
+	width: 100%;
+	top: 0;
+}
+
+.twistori #tweetTrendy{
+	font-size: 2.75em;
+}
+
+.twistori #tweetsList{
+	font-size: 3.5em;
+}
+
+.twistori #tweetsList li{
+	padding: 20px;
+}
+
+.twistori #tweetsList .avatar img{
+	width: 73px;
+	height: 73px;
+}
+
+.twistori #tweetsList .timesince{
+	display: none;
+}
+
+.twistori #tweetsList .tweet{
+	margin-left: 90px;
+}
+
+.twistori #ircRoomContainer{
+	display: none;
 }

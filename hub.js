@@ -15,6 +15,7 @@ var Hub = {
 	tweetsLimit: 40,
 	documentTitle: document.title,
 	unreadTweets: 0,
+	twistoriMode: false,
 	
 	init: function(){
 		Hub.tweetsList = $(Hub.tweetsListID);
@@ -23,6 +24,10 @@ var Hub = {
 		Hub.displayNewTweets.periodical(Hub.tweetUpdateDelay);
 		Hub.displayTrend();
 		Hub.displayTrend.periodical(Hub.tweetTrendyDelay);
+		$('twistori-mode').addEvent('mousedown', function(e){
+			e.stop();
+			Hub.toggleTwistoriMode();
+		});
 	},
 	
 	displayTweets: function(){
@@ -63,7 +68,7 @@ var Hub = {
 			});
 			Hub.unreadTweets += data.results.length;
 			if (Hub.unreadTweets > Hub.tweetsLimit) Hub.unreadTweets = Hub.tweetsLimit;
-			document.title = Hub.documentTitle + ' (' + Hub.unreadTweets + ')';
+			document.title = '(' + Hub.unreadTweets + ') ' + Hub.documentTitle;
 		});
 	},
 	
@@ -122,11 +127,11 @@ var Hub = {
 			.replace(/\B@([_a-z0-9]+)/ig, function(m){
 				return m.charAt(0) + '<a href="http://twitter.com/' + m.substring(1) + '" target="_blank">' + m.substring(1) + "</a>"});
 		tweet.timesince = Hub.getRelativeTime(tweet.created_at);
-		tweet.profile_image_url = tweet.profile_image_url.replace('normal', 'mini');
+		tweet.profile_image_url = tweet.profile_image_url.replace('_normal.', (Hub.twistoriMode) ? '_bigger.' : '_mini.');
 		
 		return new Element('li', {
 			id: tweet.from_user_id + '-' + tweet.id,
-			html: '<div class="avatar"><a href="http://twitter.com/{from_user}" target="_blank"><img src="blank.gif" alt="" style="background-image: url({profile_image_url});"></a></div>\
+			html: '<div class="avatar"><a href="http://twitter.com/{from_user}" target="_blank"><img src="blank.gif" alt="" style="background-image: url({profile_image_url});" class="avatar-image"></a></div>\
 				<div class="tweet"><a href="http://twitter.com/{from_user}" target="_blank"><strong>{from_user}</strong></a> {text}</div>\
 				<div class="timesince"><a href="http://twitter.com/{from_user}/status/{id}" title="{created_at}" target="_blank">{timesince}</a></div>'.substitute(tweet)
 		});
@@ -166,6 +171,16 @@ var Hub = {
 		if (timesince < (24*60*60)) return 'about ' + (parseInt(timesince/3600)).toString() + ' hours ago';
 		if (timesince < (48*60*60)) return '1 day ago';
 		return (parseInt(timesince/86400)).toString() + ' days ago';
+	},
+	
+	toggleTwistoriMode: function(){
+		document.body.toggleClass('twistori');
+		Hub.twistoriMode = !Hub.twistoriMode;
+		$$('.avatar-image').each(function(image){
+			var url = image.getStyle('background-image').slice(4).slice(0, -1);
+			url = (Hub.twistoriMode) ? url.replace('_mini.', '_bigger.') : url.replace('_bigger.', '_mini.');
+			image.setStyle('background-image', 'url(' + url + ')');
+		});
 	}
 	
 }
