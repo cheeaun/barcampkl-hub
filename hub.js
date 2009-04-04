@@ -26,7 +26,7 @@ var Hub = {
 		Hub.displayNewTweets.periodical(Hub.tweetUpdateDelay);
 		Hub.displayTrend();
 		Hub.displayTrend.periodical(Hub.tweetTrendyDelay);
-		$('twistori-mode').addEvent('mousedown', function(e){
+		$('twistori-mode').addEvent('click', function(e){
 			e.stop();
 			Hub.toggleTwistoriMode();
 		});
