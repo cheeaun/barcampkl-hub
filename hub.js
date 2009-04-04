@@ -16,6 +16,8 @@ var Hub = {
 	documentTitle: document.title,
 	unreadTweets: 0,
 	twistoriMode: false,
+	newTweetsBusy: false,
+	trendsBusy: false,
 	
 	init: function(){
 		Hub.tweetsList = $(Hub.tweetsListID);
@@ -41,7 +43,10 @@ var Hub = {
 	},
 	
 	displayNewTweets: function(){
+		if (Hub.newTweetsBusy) return;
+		Hub.newTweetsBusy = true;
 		Hub.getNewTweets(function(data){
+			Hub.newTweetsBusy = false;
 			Hub.refresh_url = data.refresh_url;
 			console.log(Hub.refresh_url);
 			if (!data.results.length) return;
@@ -88,7 +93,10 @@ var Hub = {
 	},
 	
 	displayTrend: function(){
+		if (Hub.trendsBusy) return;
+		Hub.trendsBusy = true;
 		Hub.getTrends(function(data){
+			Hub.trendsBusy = false;
 			var trendy = 0;
 			data.trends.each(function(trend, i){
 				if (trend.name.toLowerCase() == Hub.tag){
