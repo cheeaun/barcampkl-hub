@@ -132,9 +132,11 @@ var Hub = {
 	formatTweet: function(tweet){
 		tweet.text = tweet.text
 			.replace(/((https?|s?ftp|ssh)\:\/\/[^"\s\<\>]*[^.,;'">\:\s\<\>\)\]\!])/g, function(m){
-				return'<a href="' + m + '">' + m + "</a>"})
+				return '<a href="' + m + '">' + m + '</a>';})
 			.replace(/\B@([_a-z0-9]+)/ig, function(m){
-				return m.charAt(0) + '<a href="http://twitter.com/' + m.substring(1) + '" target="_blank">' + m.substring(1) + "</a>"});
+				return m.charAt(0) + '<a href="http://twitter.com/' + m.substring(1) + '" target="_blank">' + m.substring(1) + '</a>';})
+			.replace(/barcampkl/g, function(m){
+				return '<mark>' + m + '</mark>';});
 		tweet.timesince = Hub.getRelativeTime(tweet.created_at);
 		tweet.profile_image_url = tweet.profile_image_url.replace('_normal.', (Hub.twistoriMode) ? '_bigger.' : '_mini.');
 		
