@@ -131,10 +131,6 @@ img, a img{
 	background-color: #2B2B2B;
 }
 
-#tweetsList mark{
-	border-bottom: 1px dotted #666;
-}
-
 #tweetsList .avatar{
 	float: left;
 	width: auto;
