@@ -75,6 +75,7 @@ var Hub = {
 	clearTitle: function(){
 		var clear = function(){
 			if (document.title == Hub.documentTitle) return;
+			Hub.unreadTweets = 0;
 			(function(){
 				document.title = Hub.documentTitle;
 			}).delay(1000);
