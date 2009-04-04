@@ -12,7 +12,7 @@ var Hub = {
 	tweetTrendyID: 'tweetTrendy',
 	tweetUpdateDelay: 15000,
 	tweetTrendyDelay: 30000,
-	tweetsLimit: 40,
+	tweetsLimit: 50,
 	documentTitle: document.title,
 	unreadTweets: 0,
 	twistoriMode: false,
